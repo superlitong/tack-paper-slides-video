@@ -30,14 +30,14 @@ A: TACK aims to minimize the number of ACKs but assures enough number of ACKs fo
 
 ### Q: Why TCP-TACK works better than TCP BBR in the Pantheon in WAN scenarios?
 
-A: This is because Stanford Pantheon sets the default sender/receiver buffer to 16MB in the end-hosts. TCP BBR is a kernel-space implementation whose performance is limited by the sender/receiver buffer in the case of high-bandwidth transport. This TCP-TACK version is implemented in the user space, we have already set a large enough buffer to assure it is not the bottleneck. Our other experiment results with fair comparison show TCP-TACK has very similar behavior as TCP BBR.
+A: This is because Stanford Pantheon sets the default send/receive buffer to 16MB in the end-hosts. TCP BBR is a kernel-space implementation whose performance is limited by the send/receive buffer in long-fat network with high loss rate (e.g., 2%). This TCP-TACK version is implemented in the user space, we have already set a large enough buffer to assure it is not the bottleneck. Our other experiment results with fair comparison (i.e., enough send/receive buffer) show TCP-TACK has very similar behavior as TCP BBR.
 	
 ### Q:How well does this generalize to other environments (cellular, datacenters)?
 
-A:TACK and its corresponding advancements can also be adopted in scenarios where the acknowledgement overhead is non-negligible. When the cellular adopts the Frequency Division Duplex, the contension between the data packets and ACKs is less than that in the WLAN scenario. In datacenters, reducing ACK frequency might reduce the CPU overhead on both endpoints and intermedium nodes.
+A:TACK and its corresponding advancements can also be adopted in scenarios where the acknowledgement overhead is non-negligible. When the cellular adopts the Frequency Division Duplex, the contension between the data packets and ACKs is less than that in the WLAN scenario. However, the uplink in cellular is usually more constrained and ACKs mostly go that path and thus reduction in ACKs could improve cellular transport performance as well. In datacenters, reducing ACK frequency might reduce the CPU overhead on both endpoints and intermedium nodes.
 
 ### Q:How much does this benefit beyond what hardware aggregation offloads can offer?
 
-A: Hardware aggregation offloads such as LRO and GRO is the effective way to reducing the acknowledgement overhead of stack, but it is not minimized. TACK aims to minimize the acknowledgement overhead without any dedicate hardware support.
+A: Hardware aggregation offloads such as LRO and GRO is the effective way to reducing the acknowledgement overhead of stack, but it is not minimized. TACK aims to minimize the acknowledgement overhead without any dedicate hardware support. WLAN also adpopts the hardware aggregations such as AMPDU and AMSDU. This technologies have issues because they are very loosely coupled from transport and thus may induce delays if aggressive aggregation is sought. Our solution combines in the transport layer and thus have more contextual information to make the right decisions about ACK frequency.
 
 
