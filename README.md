@@ -38,6 +38,6 @@ A:TACK and its corresponding advancements can also be adopted in scenarios where
 
 ### Q:How much does this benefit beyond what hardware aggregation offloads can offer?
 
-A: Hardware aggregation offloads such as LRO and GRO is the effective way to reducing the acknowledgement overhead of stack, but it is not minimized. TACK aims to minimize the acknowledgement overhead without any dedicate hardware support. WLAN also adpopts the hardware aggregations such as AMPDU and AMSDU. This technologies have issues because they are very loosely coupled from transport and thus may induce delays if aggressive aggregation is sought. Our solution combines in the transport layer and thus have more contextual information to make the right decisions about ACK frequency.
+A: Hardware aggregation offloads such as LRO and GRO is the effective way to reducing the acknowledgement overhead of stack, but it is not minimized. TACK aims to minimize the acknowledgement overhead without any dedicate hardware support. WLAN also adopts the hardware aggregations such as AMPDU and AMSDU. This technologies have issues because they are very loosely coupled from transport and thus may induce delays if aggressive aggregation is sought. Our solution combines in the transport layer and thus have more contextual information to make the right decisions about ACK frequency.
 
 
