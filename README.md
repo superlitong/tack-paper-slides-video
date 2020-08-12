@@ -7,7 +7,28 @@ The shared nature of the wireless medium induces contention between data transpo
 
 ## FAQ
 
-### Q: Why TCP-TACK works better than TCP BBR in the Pantheon?
+### Q: Wifi is only used in the last mile. I wonder if something like a split TCP will be a much better approach than changing the entire ack semantic to account for WiFi idiosyncrasies. This is especially because changing the ack semantics is extremely complex.
+
+A: We agree that TCP splitting is a way to reduce the complexity of the TACK-based solution, this is based on the fact that the last-mile WiFi network usually has a smaller delay and converges fast. However, TCP splitting uses a proxy access node that divides the end-to-end TCP connection, which needs further modification on the access point (router). Another well-known problem of TCP splitting is that the split TCP connection is no longer reliable or secure, and a server failure may cause the client to believe that data has been successfully received when it has not. The cost performance of TACK with/without TCP splitting is worth being further studied. 
+
+
+### Q: Adding TACK to BBR requires a lot more changes. Because BBR is tightly coupled with acks, every state of BBR requires changes to accommodate TACKs. This is rather heavy handed and I am not sure if it is worth the trouble.
+
+A: The TACK-based protocol is a dual-side modification solution. It requires the receiver to cooperate with the sender on the congestion control. We argue that BBR requires much less changes than other congestion controllers. Take CUBIC and BBR as an example, we list the reasons as follows.
+
+(1) The TACK-based protocol requires applying pacing at the sender. BBR is a rate-based congestion controller and it adopts pacing by default. However, we have to add an extra pacing logic and convert the window size to the pacing rate if we adopt CUBIC.
+
+(2) Fine-grained monitoring does not equal to fine-grained control. BBR’s RTT and bandwidth estimations are all coupled with frequent ACKs, which is called fine-grained monitoring. However, this can be implemented with small amount of work by moving the monitoring logic from sender to receiver. This receiver-based paradigm also fits the TACK well. On the other hand, BBR does not rely on fine-grained control. For example, one round of pacing rate control can be as large as 8 RTTs. In this case, BBR can works well with TACK, and the modification efforts are bounded.
+
+### Q: Is there interaction between congestion controllers and your proposed ideas? Have you missed something by making this choice?
+
+A: TACK impacts the implementation of congestion controllers. For example, to work with TACK, it is required to change the sender-based control to receiver-based control. In our paper, we have given an example for the design and implementation of a TACK-based congestion controller co-designing BBR in a receiver-based way. Our evaluation result in Figure 27 shows that it has a similar behavior with the standard BBR. In other words, as an ACK mechanism, our current experience shows that TACK does not impact much on the performance of congestion controllers. However, we believe more substantial investigations are needed in the future, to answer the question of how TACK work with more congestion controllers such as CUBIC, Reno and Vegas. We leave this as an open issue to the readers. 
+
+### Q: How would one determine appropriate values of L and $\beta$?
+
+A: TACK aims to minimize the number of ACKs but assures enough number of ACKs for feedback robustness. In practice, it is suggested L=2 and $\beta$=4. Our real product deployment under both WAN and WLAN scenarios serves as a strong validation of its practicability. If not for special needs, it is not necessary to change the values of L and $\beta$.
+
+### Q: Why TCP-TACK works better than TCP BBR in the Pantheon in WAN scenarios?
 
 A: This is because Stanford Pantheon sets the default sender/receiver buffer to 16MB in the end-hosts. TCP BBR is a kernel-space implementation whose performance is limited by the sender/receiver buffer in the case of high-bandwidth transport. This TCP-TACK version is implemented in the user space, we have already set a large enough buffer to assure it is not the bottleneck. Our other experiment results with fair comparison show TCP-TACK has very similar behavior as TCP BBR.
 	
