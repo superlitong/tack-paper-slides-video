@@ -1,5 +1,5 @@
 # tack_paper_doc
-This repo is to share some slides and videos for the SIGCOMM2020 paper “[TACK: Improving Wireless Transport Performance by Taming Acknowledgments](http://conferences.sigcomm.org/sigcomm/2020/)”.
+This repo is to share some slides and videos for the SIGCOMM2020 paper “[TACK: Improving Wireless Transport Performance by Taming Acknowledgments](https://dl.acm.org/doi/abs/10.1145/3387514.3405850)”.
 
 ## Abstract 
 
