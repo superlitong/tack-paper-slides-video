@@ -34,7 +34,7 @@ A: This is because Stanford Pantheon sets the default send/receive buffer to 16M
 	
 ### Q:How well does this generalize to other environments (cellular, datacenters)?
 
-A:TACK and its corresponding advancements can also be adopted in scenarios where the acknowledgement overhead is non-negligible. When the cellular adopts the Frequency Division Duplex, the contension between the data packets and ACKs is less than that in the WLAN scenario. However, the uplink in cellular is usually more constrained and ACKs mostly go that path and thus reduction in ACKs could improve cellular transport performance as well. In datacenters, reducing ACK frequency might reduce the CPU overhead on both endpoints and intermedium nodes.
+A:TACK and its corresponding advancements can also be adopted in scenarios where the acknowledgement overhead is non-negligible. When the cellular adopts the Frequency Division Duplex, the contention between the data packets and ACKs is less than that in the WLAN scenario. However, the uplink in cellular is usually more constrained and ACKs mostly go that path and thus reduction in ACKs could improve cellular transport performance as well. In datacenters, reducing ACK frequency might reduce the CPU overhead on both endpoints and intermedium nodes.
 
 ### Q:How much does this benefit beyond what hardware aggregation offloads can offer?
 
