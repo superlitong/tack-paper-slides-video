@@ -1,5 +1,11 @@
-# tack_paper_doc
+# About
 This repo is to share some slides and videos for the SIGCOMM2020 paper “[TACK: Improving Wireless Transport Performance by Taming Acknowledgments](https://dl.acm.org/doi/abs/10.1145/3387514.3405850)”.
+
+A UDP-based full protocol implementation of TACK is called FillP. Here is the [demo](https://github.com/superlitong/fillp-demo).
+
+Please cite the paper as follows (or use this [bibtex record](./bibtex.txt)).
+
+- Tong Li, Kai Zheng, Ke Xu, Rahul Arvind Jadhav, Tao Xiong, Keith Winstein, Kun Tan. TACK: Improving Wireless Transport Performance by Taming Acknowledgments. Annual conference of the ACM Special Interest Group on Data Communication on the applications, technologies, architectures, and protocols for computer communication (ACM SIGCOMM), pp. 15-30, 2020.
 
 ## Abstract 
 
