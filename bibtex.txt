@@ -1,0 +1,7 @@
+@inproceedings{li2020tack,
+author = {Li, Tong and Zheng, Kai and Xu, Ke and Jadhav, Rahul Arvind and Xiong, Tao and Winstein, Keith and Tan, Kun},
+title = {TACK: Improving Wireless Transport Performance by Taming Acknowledgments},
+booktitle = {ACM SIGCOMM},
+pages = {15--30},
+year = {2020},
+}
